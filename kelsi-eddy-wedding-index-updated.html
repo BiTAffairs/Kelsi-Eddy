@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3d1017">
+  <meta name="description" content="Kelsi & Eddy — wedding invitation, 14 November 2026.">
+  <meta property="og:title" content="Kelsi & Eddy — Wedding Invitation">
+  <meta property="og:description" content="A celebration of love, family and forever — 14 November 2026.">
+  <meta property="og:type" content="website">
+  <title>Kelsi &amp; Eddy — Wedding Invitation</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="assets/envelope-cover.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="assets/envelope-flap-layer.webp" fetchpriority="high">
+
+  <style>
+    :root {
+      --burgundy: #5c1a24;
+      --burgundy-deep: #3d1017;
+      --burgundy-dark: #21070b;
+      --olive: #5f6b3e;
+      --olive-deep: #45502c;
+      --cream: #f6f0e4;
+      --parchment: #efe6d4;
+      --gold: #b78d4e;
+      --gold-light: #d5b574;
+      --ink: #2a2420;
+      --muted: #655b52;
+      --ease-luxury: cubic-bezier(.22,.72,.18,1);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: Jost, sans-serif;
+      font-weight: 300;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    body.is-locked { overflow: hidden; height: 100svh; }
+    button, input, select, textarea { font: inherit; }
+    img { max-width: 100%; }
+    :focus-visible { outline: 1px solid var(--gold-light); outline-offset: 4px; }
+
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+    p { margin: 0; }
+
+    .eyebrow {
+      color: var(--olive-deep);
+      font-size: .72rem;
+      letter-spacing: .35em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .sprig { display: block; width: 100px; margin-inline: auto; }
+    .sprig path { stroke: var(--gold); }
+
+    /* ---------- BiT Affairs brand mark ---------- */
+    .brand-mark {
+      position: fixed;
+      top: max(18px, env(safe-area-inset-top));
+      left: max(18px, env(safe-area-inset-left));
+      z-index: 1200;
+      width: clamp(42px, 5vw, 58px);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      opacity: .94;
+      transition: transform .45s ease, opacity .45s ease;
+    }
+    .brand-mark:hover { transform: translateY(-1px); opacity: 1; }
+    .brand-mark:focus-visible { outline: 1px solid var(--gold-light); outline-offset: 5px; }
+    .brand-mark img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    /* ---------- Opening cover ---------- */
+    .envelope-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 4vh 5vw;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(130,35,48,.22), transparent 38%),
+        radial-gradient(circle at 50% 100%, rgba(0,0,0,.28), transparent 58%),
+        linear-gradient(180deg, #26080d 0%, var(--burgundy-deep) 55%, var(--burgundy-dark) 100%);
+      opacity: 1;
+      visibility: visible;
+      transition: opacity .32s ease, visibility .32s ease;
+      isolation: isolate;
+    }
+    .envelope-overlay::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      background-image: radial-gradient(rgba(255,255,255,.12) .6px, transparent .6px);
+      background-size: 5px 5px;
+      mix-blend-mode: soft-light;
+    }
+    .envelope-overlay.dismissed {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .envelope-cover {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: min(470px, 88vw);
+    }
+
+    .envelope-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      perspective: 1800px;
+      transform-style: preserve-3d;
+      cursor: pointer;
+      touch-action: manipulation;
+      filter: drop-shadow(0 30px 72px rgba(0,0,0,.58));
+      outline: none;
+    }
+    .envelope-stage:focus-visible::before {
+      content: "";
+      position: absolute;
+      inset: -9px;
+      border: 1px solid rgba(183,141,78,.75);
+      border-radius: 8px;
+      pointer-events: none;
+    }
+
+    .envelope-cover-static {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      opacity: 1;
+      visibility: visible;
+      pointer-events: none;
+      user-select: none;
+      transition: opacity .22s ease, visibility .22s ease;
+    }
+
+    .envelope-inner {
+      position: absolute;
+      inset: 8% 8% 7%;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(183,141,78,.45);
+      background:
+        radial-gradient(circle at 50% 20%, rgba(255,255,255,.76), transparent 45%),
+        linear-gradient(145deg, #fbf6eb, #eee3cf);
+      box-shadow: inset 0 0 30px rgba(78,47,26,.12), 0 18px 36px rgba(0,0,0,.08);
+      opacity: .98;
+      transform: translateY(2%);
+      transition: transform .85s var(--ease-luxury), opacity .45s ease;
+    }
+    .envelope-inner::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border: 1px solid rgba(183,141,78,.45);
+      pointer-events: none;
+    }
+    .inner-copy {
+      position: relative;
+      z-index: 2;
+      padding: 1.4rem;
+      text-align: center;
+      color: var(--burgundy-deep);
+    }
+    .inner-copy .mini-eyebrow {
+      margin-bottom: .75rem;
+      color: var(--gold-light);
+      font: 500 .58rem/1 Jost, sans-serif;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+    }
+    .inner-copy h2 {
+      color: var(--burgundy);
+      font: italic 400 clamp(2.2rem, 7vw, 3.5rem)/.9 "Cormorant Garamond", serif;
+    }
+    .inner-copy p {
+      margin-top: .8rem;
+      color: #6b5b4b;
+      font: 400 .66rem/1.6 Jost, sans-serif;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .envelope-base-layer,
+    .envelope-flap-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+    }
+    .envelope-base-layer { z-index: 2; }
+
+    .envelope-flap-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      transform-origin: 50% 0%;
+      transform-style: preserve-3d;
+      transform: rotateX(0deg);
+      transition: transform 1.15s cubic-bezier(.16, .9, .2, 1);
+      pointer-events: none;
+      will-change: transform;
+    }
+    .envelope-flap-layer {
+      z-index: 4;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .envelope-flap-wrap::before {
+      content: "";
+      position: absolute;
+      left: 9%;
+      right: 9%;
+      top: 7%;
+      height: 72%;
+      border-radius: 50%;
+      background: rgba(0,0,0,.35);
+      filter: blur(24px);
+      opacity: 0;
+      transform: translateY(14%);
+      transition: opacity .4s ease, transform 1.05s var(--ease-luxury);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .seal-hit {
+      position: absolute;
+      left: 50%;
+      top: 51%;
+      z-index: 8;
+      width: 27%;
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .seal-hit:focus-visible {
+      outline: 1px solid rgba(213,181,116,.95);
+      outline-offset: 7px;
+    }
+    .envelope-stage.seal-pressed .envelope-flap-wrap { transform: translateY(2px) scale(.994); }
+
+    .envelope-seal-glow {
+      position: absolute;
+      left: 50%;
+      top: 51%;
+      z-index: 5;
+      width: 27%;
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: sealPulse 3.4s ease-in-out infinite;
+      transition: opacity .5s ease;
+    }
+    @keyframes sealPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(183,141,78,.02); }
+      50% { box-shadow: 0 0 0 13px rgba(183,141,78,.10); }
+    }
+
+    .tap-label {
+      position: absolute;
+      left: 50%;
+      bottom: 7.5%;
+      z-index: 10;
+      transform: translateX(-50%);
+      color: var(--cream);
+      font: 500 .68rem/1 Jost, sans-serif;
+      letter-spacing: .32em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 12px rgba(0,0,0,.72);
+      white-space: nowrap;
+      opacity: .9;
+      transition: opacity .3s ease, transform .3s ease;
+    }
+    .tap-label::before {
+      content: "";
+      display: block;
+      width: 4px;
+      height: 4px;
+      margin: 0 auto .75rem;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px rgba(183,141,78,.08);
+    }
+    .cover-subtitle {
+      margin-top: .95rem;
+      color: var(--gold-light);
+      font: 400 .68rem/1.2 Jost, sans-serif;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      opacity: .82;
+    }
+
+    /* The flap opens first; the envelope remains visible until the physical gesture finishes. */
+    .envelope-stage.open .envelope-cover-static {
+      opacity: 0;
+      visibility: hidden;
+    }
+    .envelope-stage.open .envelope-flap-wrap {
+      transform: rotateX(-158deg) translateY(-1%);
+    }
+    .envelope-stage.open .envelope-flap-wrap::before {
+      opacity: .65;
+      transform: translateY(5%);
+    }
+    .envelope-stage.open .seal-hit { pointer-events: none; }
+    .envelope-stage.open .envelope-inner { transform: translateY(-2%) scale(1.025); }
+    .envelope-stage.open .envelope-seal-glow,
+    .envelope-stage.open .tap-label { opacity: 0; }
+    .envelope-stage.open .tap-label { transform: translate(-50%, 8px); }
+
+    /* ---------- Invitation ---------- */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10vh 6vw;
+      background: linear-gradient(180deg, var(--burgundy) 0%, var(--burgundy-deep) 100%);
+      color: var(--cream);
+      text-align: center;
+    }
+    .hero .eyebrow,
+    .hero .names,
+    .hero .date-line,
+    .hero .hashtag-line,
+    .hero .sprig { opacity: 0; }
+    .hero .eyebrow {
+      color: var(--gold-light);
+      font-weight: 500;
+      letter-spacing: .38em;
+      text-shadow: 0 1px 10px rgba(0,0,0,.25);
+    }
+    .hero .names {
+      margin: 1rem 0;
+      font-size: clamp(2.4rem, 7.5vw, 4.6rem);
+      line-height: 1.1;
+    }
+    .hero .amp {
+      display: block;
+      margin: .2em 0;
+      color: var(--gold-light);
+      font-size: .5em;
+      font-style: italic;
+    }
+    .hero .date-line {
+      max-width: 680px;
+      margin-top: .7rem;
+      font-size: clamp(1rem, 2.2vw, 1.25rem);
+      letter-spacing: .06em;
+    }
+    .hero .hashtag-line {
+      margin-top: .8rem;
+      color: var(--gold-light);
+      font: italic 1.05rem "Cormorant Garamond", serif;
+    }
+    .hero .sprig { margin-top: 2rem; }
+
+    body.hero-ready .hero .eyebrow { animation: riseBlur 1s .15s ease forwards; }
+    body.hero-ready .hero .names { animation: riseBlur 1.05s .35s ease forwards; }
+    body.hero-ready .hero .date-line { animation: riseBlur 1s .62s ease forwards; }
+    body.hero-ready .hero .hashtag-line { animation: riseBlur 1s .76s ease forwards; }
+    body.hero-ready .hero .sprig { animation: riseSimple .9s .9s ease forwards; }
+
+    @keyframes riseSimple {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes riseBlur {
+      from { opacity: 0; transform: translateY(20px); filter: blur(8px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+
+    section {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 5rem 6vw;
+    }
+    .section-head { margin-bottom: 2.2rem; text-align: center; }
+    .section-head h2 { margin-top: .5rem; font-size: clamp(1.7rem, 3.6vw, 2.2rem); }
+    .story p { color: #4a4038; font-size: 1.02rem; text-align: center; }
+    .story p + p { margin-top: 1rem; }
+
+    .schedule { background: var(--parchment); border-radius: 4px; }
+    .schedule-list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+    .schedule-item { display: grid; grid-template-columns: 90px 1px 1fr; gap: 1.3rem; padding: 1.3rem 0; }
+    .schedule-item + .schedule-item { border-top: 1px solid rgba(95,107,62,.2); }
+    .schedule-time { color: var(--burgundy); font: 1.15rem "Cormorant Garamond", serif; text-align: right; }
+    .schedule-rule { background: var(--gold); opacity: .5; }
+    .schedule-body h3 { color: var(--olive-deep); font-size: 1.25rem; }
+    .schedule-body p { margin-top: .2rem; color: #5a5148; font-size: .9rem; }
+
+    .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.6rem; }
+    .detail-card { padding: 1.5rem; border: 1px solid rgba(95,107,62,.3); border-radius: 3px; text-align: center; }
+    .detail-card h3 { margin-top: .4rem; color: var(--burgundy); font-size: 1.3rem; }
+    .detail-card p { margin-top: .35rem; color: #5a5148; font-size: .88rem; }
+    .palette-row { display: flex; justify-content: center; gap: .7rem; margin-top: 1rem; }
+    .swatch { width: 26px; height: 26px; border: 1px solid rgba(0,0,0,.08); border-radius: 50%; }
+    .swatch.burgundy { background: var(--burgundy); }
+    .swatch.olive { background: var(--olive); }
+    .swatch.gold { background: var(--gold); }
+    .swatch.cream { background: var(--cream); border-color: rgba(0,0,0,.15); }
+
+    .notice-banner { margin-top: 1.8rem; padding: 1rem 1.2rem; border: 1px solid rgba(92,26,36,.25); border-radius: 4px; background: rgba(92,26,36,.06); text-align: center; }
+    .notice-banner p { color: #5a5148; font-size: .85rem; line-height: 1.5; }
+
+    .rsvp { background: var(--olive-deep); border-radius: 4px; color: var(--cream); }
+    .rsvp .section-head .eyebrow { color: var(--gold); }
+    .rsvp .section-head h2 { color: var(--cream); }
+    .field { margin-bottom: 1rem; }
+    .field label { display: block; margin-bottom: .4rem; color: rgba(246,240,228,.9); font-size: .78rem; letter-spacing: .08em; }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      padding: .85rem .9rem;
+      border: 1px solid rgba(246,240,228,.3);
+      border-radius: 2px;
+      outline: none;
+      background: rgba(246,240,228,.08);
+      color: var(--cream);
+    }
+    .field select option { color: var(--ink); }
+    .field input::placeholder, .field textarea::placeholder { color: rgba(246,240,228,.58); }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(183,141,78,.12); }
+    .rsvp-submit {
+      width: 100%;
+      padding: .9rem 1rem;
+      border: 1px solid var(--gold);
+      border-radius: 2px;
+      background: var(--gold);
+      color: var(--burgundy-deep);
+      cursor: pointer;
+      font-weight: 500;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: transform .25s ease, filter .25s ease;
+    }
+    .rsvp-submit:hover { filter: brightness(1.08); transform: translateY(-1px); }
+    .confirm-msg { display: none; margin-top: 1rem; color: var(--cream); font-size: .9rem; text-align: center; }
+
+    footer { padding: 4rem 6vw 5rem; text-align: center; }
+    footer .amp { color: var(--burgundy); font: italic 1.3rem "Cormorant Garamond", serif; }
+    footer .credit { margin-top: .8rem; color: #8a8074; font-size: .76rem; letter-spacing: .04em; opacity: .75; }
+
+    @media (max-width: 560px) {
+      .envelope-cover { width: min(390px, 90vw); }
+      .cover-subtitle { font-size: .62rem; letter-spacing: .17em; }
+      section { padding-inline: 7vw; }
+      .details-grid { grid-template-columns: 1fr; }
+      .schedule-item { grid-template-columns: 72px 1px 1fr; gap: .9rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .envelope-flap-wrap, .envelope-inner, .envelope-overlay { transition: none; }
+      .envelope-stage.open .envelope-flap-wrap { transform: rotateX(-155deg); }
+      .envelope-seal-glow { animation: none; }
+      .hero .eyebrow, .hero .names, .hero .date-line, .hero .hashtag-line, .hero .sprig {
+        opacity: 1; filter: none; transform: none; animation: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="is-locked">
+  <a class="brand-mark" href="#heroSection" aria-label="BiT Affairs"><img src="assets/bit-affairs-logo.png" alt="BiT Affairs"></a>
+
+  <div class="envelope-overlay" id="envelopeOverlay" aria-label="Wedding invitation cover">
+    <div class="envelope-cover">
+      <div class="envelope-stage" id="envelopeStage" role="button" tabindex="0" aria-label="Open Kelsi and Eddy's wedding invitation">
+        <img class="envelope-cover-static" src="assets/envelope-cover.webp" alt="" aria-hidden="true" fetchpriority="high">
+        <div class="envelope-inner" aria-hidden="true">
+          <div class="inner-copy">
+            <div class="mini-eyebrow">Together with their families</div>
+            <h2>Kelsi &amp; Eddy</h2>
+            <p>14 November 2026</p>
+          </div>
+        </div>
+
+        <img class="envelope-base-layer" src="assets/envelope-base-clean.webp" alt="" aria-hidden="true">
+        <div class="envelope-flap-wrap" aria-hidden="true">
+          <img class="envelope-flap-layer" src="assets/envelope-flap-layer.webp" alt="">
+        </div>
+        <div class="envelope-seal-glow" aria-hidden="true"></div>
+        <button class="seal-hit" id="sealHit" type="button" aria-label="Tap the wax seal to open the invitation"></button>
+        <div class="tap-label" aria-hidden="true">Tap the seal to open</div>
+      </div>
+      <div class="cover-subtitle">Kelsi &amp; Eddy · 14 November 2026</div>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero" id="heroSection">
+      <div class="eyebrow">Together with their families</div>
+      <h1 class="names">Kelsi <span class="amp">&amp;</span> Eddy</h1>
+      <div class="date-line">request the honour of your presence, Saturday, 14th November 2026</div>
+      <div class="hashtag-line">#WrittenIntoForever</div>
+      <svg class="sprig" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M10 20 H190" stroke-width="1"/>
+        <path d="M100 20 C95 10,85 8,80 14 C88 16,94 18,100 20 Z" stroke-width="1"/>
+        <path d="M100 20 C105 10,115 8,120 14 C112 16,106 18,100 20 Z" stroke-width="1"/>
+        <circle cx="100" cy="20" r="3" stroke-width="1"/>
+      </svg>
+    </section>
+
+    <section class="story">
+      <div class="section-head">
+        <div class="eyebrow">Our Story</div>
+        <h2>Here, forever begins</h2>
+      </div>
+      <p>Some people come into your life and quietly change everything. Somehow, through all the moments and years in between, we found a love that feels like home.</p>
+      <p>And now, as we begin our next chapter, we would be honoured to celebrate this beautiful moment with you.</p>
+    </section>
+
+    <section class="schedule">
+      <div class="section-head"><div class="eyebrow">The Celebration</div><h2>Schedule of Events</h2></div>
+      <ul class="schedule-list">
+        <li class="schedule-item"><div class="schedule-time">3:00 PM</div><div class="schedule-rule"></div><div class="schedule-body"><h3>Joining</h3><p>Celebrate Garden. Please be seated by 2:45 PM.</p></div></li>
+        <li class="schedule-item"><div class="schedule-time">4:00 PM</div><div class="schedule-rule"></div><div class="schedule-body"><h3>Reception</h3><p>Celebrate Garden. Dinner, dancing, and toasts.</p></div></li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="section-head"><div class="eyebrow">Good to Know</div><h2>Details for Guests</h2></div>
+      <div class="details-grid">
+        <div class="detail-card"><div class="eyebrow">Venue</div><h3>Celebrate Garden</h3><p>Joining at 3PM, reception to follow at 4PM.</p></div>
+        <div class="detail-card"><div class="eyebrow">Dress Code</div><h3>Burgundy &amp; Olive</h3><p>Formal attire. We'd love to see the palette on the dance floor.</p><div class="palette-row"><span class="swatch burgundy"></span><span class="swatch olive"></span><span class="swatch gold"></span><span class="swatch cream"></span></div></div>
+      </div>
+      <div class="notice-banner">
+        <div class="eyebrow">Venue Access</div>
+        <p>Kindly note: This invitation is a personal invitation to the celebration and does not serve as a venue access pass.</p>
+        <p>For the comfort and security of all our guests, <strong>entry to the venue will be strictly by access card</strong>. Access cards will be personally shared with invited guests by <strong>Kelsi &amp; Eddy</strong> ahead of the celebration.</p>
+        <p>We kindly ask that you present your access card upon arrival. <strong>Guests without an access card may not be admitted.</strong></p>
+        <p>Thank you for your kind understanding and cooperation.</p>
+      </div>
+    </section>
+
+    <section class="rsvp">
+      <div class="section-head"><div class="eyebrow">Kindly Respond</div><h2>RSVP</h2></div>
+      <form id="rsvpForm">
+        <div class="field"><label for="name">Full name</label><input id="name" name="name" type="text" autocomplete="name" required placeholder="Your name"></div>
+        <div class="field"><label for="attending">Will you be attending?</label><select id="attending" name="attending"><option>Joyfully accepts</option><option>Regretfully declines</option></select></div>
+        <div class="field"><label for="note">Message for the couple (optional)</label><textarea id="note" name="note" rows="3" placeholder="Leave a wish for Kelsi &amp; Eddy"></textarea></div>
+        <button type="submit" class="rsvp-submit">Send RSVP</button>
+        <div class="confirm-msg" id="confirmMsg" role="status" aria-live="polite">Thank you, your RSVP has been recorded.</div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <svg class="sprig" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M10 20 H190" stroke-width="1"/><path d="M100 20 C95 10,85 8,80 14 C88 16,94 18,100 20 Z" stroke-width="1"/><path d="M100 20 C105 10,115 8,120 14 C112 16,106 18,100 20 Z" stroke-width="1"/><circle cx="100" cy="20" r="3" stroke-width="1"/>
+    </svg>
+    <p>With love, <span class="amp">Kelsi &amp; Eddy</span></p>
+    <p class="credit">Digital invitation crafted by BiT Affairs</p>
+  </footer>
+
+  <script>
+    (() => {
+      const stage = document.getElementById('envelopeStage');
+      const sealHit = document.getElementById('sealHit');
+      const overlay = document.getElementById('envelopeOverlay');
+      const body = document.body;
+      const rsvpForm = document.getElementById('rsvpForm');
+      const confirmMsg = document.getElementById('confirmMsg');
+      const OPEN_DURATION = 2000;
+      let opened = false;
+
+      const openInvite = () => {
+        if (opened) return;
+        opened = true;
+        stage.classList.remove('seal-pressed');
+        stage.classList.add('open');
+        sealHit.disabled = true;
+        sealHit.setAttribute('aria-label', 'Invitation opening');
+
+        window.setTimeout(() => {
+          overlay.classList.add('dismissed');
+          body.classList.remove('is-locked');
+          body.classList.add('hero-ready');
+        }, OPEN_DURATION);
+      };
+
+      sealHit.addEventListener('click', openInvite);
+      sealHit.addEventListener('pointerdown', () => {
+        if (!opened) stage.classList.add('seal-pressed');
+      });
+      ['pointerup', 'pointercancel', 'pointerleave'].forEach(type => {
+        sealHit.addEventListener(type, () => stage.classList.remove('seal-pressed'));
+      });
+
+      stage.addEventListener('keydown', event => {
+        if ((event.key === 'Enter' || event.key === ' ') && !opened) {
+          event.preventDefault();
+          openInvite();
+        }
+      });
+
+      rsvpForm.addEventListener('submit', event => {
+        event.preventDefault();
+        confirmMsg.style.display = 'block';
+        rsvpForm.querySelector('.rsvp-submit').style.display = 'none';
+      });
+    })();
+  </script>
+</body>
+</html>
