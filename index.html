@@ -106,7 +106,7 @@
         linear-gradient(180deg, #26080d 0%, var(--burgundy-deep) 55%, var(--burgundy-dark) 100%);
       opacity: 1;
       visibility: visible;
-      transition: opacity .72s ease, visibility .72s ease;
+      transition: opacity .32s ease, visibility .32s ease;
       isolation: isolate;
     }
     .envelope-overlay::before {
@@ -166,7 +166,7 @@
       visibility: visible;
       pointer-events: none;
       user-select: none;
-      transition: opacity .38s ease, visibility .38s ease;
+      transition: opacity .22s ease, visibility .22s ease;
     }
 
     .envelope-inner {
@@ -183,7 +183,7 @@
       box-shadow: inset 0 0 30px rgba(78,47,26,.12), 0 18px 36px rgba(0,0,0,.08);
       opacity: .98;
       transform: translateY(2%);
-      transition: transform 1.35s var(--ease-luxury), opacity .7s ease;
+      transition: transform .85s var(--ease-luxury), opacity .45s ease;
     }
     .envelope-inner::before {
       content: "";
@@ -238,7 +238,7 @@
       transform-origin: 50% 0%;
       transform-style: preserve-3d;
       transform: rotateX(0deg);
-      transition: transform 2.55s cubic-bezier(.2, .78, .18, 1);
+      transition: transform 1.15s cubic-bezier(.16, .9, .2, 1);
       pointer-events: none;
       will-change: transform;
     }
@@ -259,7 +259,7 @@
       filter: blur(24px);
       opacity: 0;
       transform: translateY(14%);
-      transition: opacity .7s ease, transform 2.35s var(--ease-luxury);
+      transition: opacity .4s ease, transform 1.05s var(--ease-luxury);
       pointer-events: none;
       z-index: -1;
     }
@@ -316,7 +316,7 @@
       text-shadow: 0 2px 12px rgba(0,0,0,.72);
       white-space: nowrap;
       opacity: .9;
-      transition: opacity .6s ease, transform .6s ease;
+      transition: opacity .3s ease, transform .3s ease;
     }
     .tap-label::before {
       content: "";
@@ -603,7 +603,7 @@
       const body = document.body;
       const rsvpForm = document.getElementById('rsvpForm');
       const confirmMsg = document.getElementById('confirmMsg');
-      const OPEN_DURATION = 3000;
+      const OPEN_DURATION = 1450;
       let opened = false;
 
       const openInvite = () => {
