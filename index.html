@@ -106,7 +106,7 @@
         linear-gradient(180deg, #26080d 0%, var(--burgundy-deep) 55%, var(--burgundy-dark) 100%);
       opacity: 1;
       visibility: visible;
-      transition: opacity 1.35s ease, visibility 1.35s ease;
+      transition: opacity .72s ease, visibility .72s ease;
       isolation: isolate;
     }
     .envelope-overlay::before {
@@ -166,7 +166,7 @@
       visibility: visible;
       pointer-events: none;
       user-select: none;
-      transition: opacity .22s ease, visibility .22s ease;
+      transition: opacity .38s ease, visibility .38s ease;
     }
 
     .envelope-inner {
@@ -183,7 +183,7 @@
       box-shadow: inset 0 0 30px rgba(78,47,26,.12), 0 18px 36px rgba(0,0,0,.08);
       opacity: .98;
       transform: translateY(2%);
-      transition: transform 1.8s var(--ease-luxury), opacity 1s ease;
+      transition: transform 1.35s var(--ease-luxury), opacity .7s ease;
     }
     .envelope-inner::before {
       content: "";
@@ -238,7 +238,7 @@
       transform-origin: 50% 0%;
       transform-style: preserve-3d;
       transform: rotateX(0deg);
-      transition: transform 4.35s cubic-bezier(.16, .82, .18, 1);
+      transition: transform 2.55s cubic-bezier(.2, .78, .18, 1);
       pointer-events: none;
       will-change: transform;
     }
@@ -259,7 +259,7 @@
       filter: blur(24px);
       opacity: 0;
       transform: translateY(14%);
-      transition: opacity 1.2s ease, transform 3.7s var(--ease-luxury);
+      transition: opacity .7s ease, transform 2.35s var(--ease-luxury);
       pointer-events: none;
       z-index: -1;
     }
@@ -343,7 +343,7 @@
       visibility: hidden;
     }
     .envelope-stage.open .envelope-flap-wrap {
-      transform: rotateX(-168deg) translateY(-1%);
+      transform: rotateX(-158deg) translateY(-1%);
     }
     .envelope-stage.open .envelope-flap-wrap::before {
       opacity: .65;
@@ -603,7 +603,7 @@
       const body = document.body;
       const rsvpForm = document.getElementById('rsvpForm');
       const confirmMsg = document.getElementById('confirmMsg');
-      const OPEN_DURATION = 4900;
+      const OPEN_DURATION = 3000;
       let opened = false;
 
       const openInvite = () => {
